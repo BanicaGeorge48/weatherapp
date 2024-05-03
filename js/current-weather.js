@@ -29,7 +29,7 @@ function setCurrentTemp($el, temp) {
 }
 
 //backround function
-function solarStatus(sunsetTime, sunriseTime) {
+function solarStatus(sunriseTime, sunsetTime) {
     const currentHours = new Date().getHours()
     const sunsetHours = sunsetTime.getHours()
     const sunriseHours = sunriseTime.getHours()
@@ -40,9 +40,10 @@ function solarStatus(sunsetTime, sunriseTime) {
     return 'morning'
 }
 
+
 function setBackground($el, conditionCode, solarStatus) {
     const weatherType = weatherConditionsCodes[conditionCode]
-    const size = window.matchMedia ('(-webkit-min-device-pixel-ratio: 2)').matches ? '@2x' : ''
+    const size = window.matchMedia('(-webkit-min-device-pixel-ratio: 2)').matches ? '@2x' : ''
     $el.style.backgroundImage = `url(./images/${solarStatus}-${weatherType}${size}.jpg)`
 }
 
@@ -67,9 +68,8 @@ function configCurrentWeather(weather){
     setCurrentTemp($CurrentWeatherTemp, temp)
 
     //backround
-    const sunriseTime = new Date (weather.sys.sunrise *1000)
-    const sunsetTime = new Date (weather.sys.sunset *1000)
-    
+    const sunriseTime = new Date(weather.sys.sunrise * 1000)
+    const sunsetTime = new Date(weather.sys.sunset * 1000)
     const conditionCode = String(weather.weather[0].id).charAt(0)
     setBackground($app, conditionCode, solarStatus(sunriseTime, sunsetTime))
 
